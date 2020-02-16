@@ -7,18 +7,25 @@ import matplotlib.pyplot as pyplot
 import pickle
 from matplotlib import style
 
+#uploading dataset
 data = pd.read_csv('student-mat.csv', sep=';')
 
 data = data[['G1', 'G2', 'G3', 'studytime', 'failures', 'absences']]
 
+#Predicting "G3" which is the final grade
 predict = 'G3'
 
+#dropping the actual final grade data
 x = np.array(data.drop([predict], 1))
+
+#specifying our y "prediction"
 y = np.array(data[predict])
+
+#Train Test Split
 x_train, x_test, y_train, y_test = sklearn.model_selection.train_test_split(x, y, test_size=0.1)
 
 
-##TRAIN MODEL -- LAST TRAIN ACC(98.301)##
+##Linear Regression TRAIN MODEL##
 best = 0.9743353123117502
 for i in range(20000):
     x_train, x_test, y_train, y_test = sklearn.model_selection.train_test_split(x, y, test_size = 0.1)
@@ -49,7 +56,7 @@ predictions = linear.predict(x_test)
 
 
 
-
+#KNeighborClassifier Model#
 '''best = .725
 for i in range(2000000):
     #training function with SKLEARN ###Test size is used for the amount of data tested. 0.2 for example will test more,sacrificing performance.
@@ -77,6 +84,7 @@ predictions = model.predict(x_test)'''
 
 label = ['G1', 'G2', 'studytime', 'failures', 'absences']
 
+#printing the prediction data compared to actual
 for i in range(len(predictions)):
     print('Prediction:',predictions[i]*5 , 'Data:',x_test[i], 'Actual:',y_test[i]*5 )
 
